@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   
+</head>
+<body>
+    <div id="app">
+        <h1 v-html="message"></h1>
+    </div>
+    <script>
+        var app = new Vue({
+            //  {{}}插值替换 会替换指定内容
+            // v-text 会替换全部内容        
+            el:"#app",
+            data:{
+               message:"<a href='#'>点我</a>hello"
+            }
+        })
+    </script>
+</body>
+</html>
