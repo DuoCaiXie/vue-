@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <ul id="app">
+        <li v-for="item in city_arr">{{item}}</li>
+        <br>
+        <li v-for="(item,index) in vegetables">{{index+1}}:{{item.name}}</li>
+        <input type="button" value="增加" @click="add">
+        <input type="button" value="减少" @click="sub">
+
+    </ul>
+
+    
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                city_arr:['北','上','广','深'],
+                vegetables:[
+                    {name:"炒西兰花"},
+                    {name:"番茄炒蛋"}
+                ]
+            },
+            methods:{
+                add:function(){
+                    this.vegetables.push({name:"花菜炒蛋"})
+                },
+                sub:function(){
+                    this.vegetables.shift()
+                }
+            }
+        })
+    </script>
+</body>
+</html>
