@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<!-- 新增 删除 统计 清空 隐藏 -->
+<body>
+    <div id="app">
+
+        <input type="text" placeholder="请输入任务" @keyup.enter="addlist" v-model="listArray[index]">
+        <ul>
+            <li v-for="(item,thisindex) in listArray" >任务{{thisindex+1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{item}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span @click="subList(thisindex)">删除</span></li>
+        </ul>
+        <span v-show="listArray.length">当前有{{listArray.length}}任务</span>
+        <button @click="clear" v-show="listArray.length">清空</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                index:0,
+                listArray:[],
+              
+            },
+            methods:{
+                addlist:function(){
+                    console.log(this.index);
+                    this.index++;
+                    // this.listArray.push(this.temp)
+                },
+                subList:function(temp){
+                    console.log(temp)
+                    this.listArray.splice(temp,1);
+                    // this.listArray[this.]=''
+                },
+                // 清空
+                clear:function(){
+                    this.listArray=[];
+                }
+            }
+        })
+    </script>
+</body>
+</html>
