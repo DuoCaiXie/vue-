@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios@0.19.2/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="请输入歌手或歌名" @keyup.enter="search_Music" v-model="music">
+        <button>搜索</button>
+        <ul>
+                <div style="border:1px solid red;width:300px;height:300px; position: absolute;left: 500px; top: 30px;" >
+                        <img :src="imageCover" width="300px" height="300px" >
+                        <audio :src="music_url"   controls autoplay loop></audio>
+                </div>
+           
+            <li v-for="item in music_list" >{{item.name}} <button @click="play_music(item.id)">播放</button> <button v-if="item.mvid!=0">MV</button> </li> 
+            <div style="position: absolute; left: 800px; top: 30px;" >
+                <ul>
+                    <li v-for="item in hot_comment_list" style="width: 200px;">{{item.content}}</li>
+                </ul>
+            </div>
+        </ul>
+        
+        
+    </div>
+    <script>
+
+        var app = new Vue({
+            el:"#app",
+            data:{
+                music:'',
+                music_list:[],
+                music_url:"",
+                imageCover:"https://p2.music.126.net/RQBF9kqZb7PtLCaOxi9ngQ==/109951163053984533.jpg",
+                hot_comment_list:[]
+            },
+            methods:{
+                search_Music:function(){
+                    // console.log('nihao')
+                    that = this
+                    axios.get('https://autumnfish.cn/search?keywords='+this.music).then(function(response){
+                        // console.log(response)
+                        that.music_list = response.data.result.songs;
+                    }).catch(function(err){})
+                },
+                play_music:function(music_id){
+                    console.log(music_id);
+                    var that = this;
+                    axios.get('https://autumnfish.cn/song/url?id='+music_id).then(function(response){
+                        // console.log(response.data.data[0].url)
+                        that.music_url = response.data.data[0].url;
+
+                    }).catch(function(err){})
+                    axios.get('https://autumnfish.cn/song/detail?ids='+music_id).then(function(response){
+                        // console.log(response.data.songs[0].al.picUrl)
+                        that.imageCover = response.data.songs[0].al.picUrl
+                    }).catch(function(err){})
+                    axios.get('https://autumnfish.cn/comment/hot?type=0&id='+music_id).then(function(response){
+                        // console.log(response.data.songs[0].al.picUrl)
+                        // that.imageCover = response.data.songs[0].al.picUrl
+                        // console.log(response)
+                        that.hot_comment_list = response.data.hotComments
+                    }).catch(function(err){})
+                }
+            }
+        })    
+    </script>
+</body>
+</html>
