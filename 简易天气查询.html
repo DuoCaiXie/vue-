@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios@0.19.2/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+            <input type="text" @keyup.enter="weatherSearch" v-model="city">
+            <button>搜索</button>
+            <ul>
+                <li v-for="item in weather_list">
+                        {{item.date}}{{item.type}} {{item.high}} {{item.fengli}} {{item.low}} {{item.fengxiang}}
+                </li>
+            </ul>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                city:"",
+                weather_list:[]
+            },
+            methods:{
+                weatherSearch:function(){
+                    console.log(this.city);
+                    that = this
+                    axios.get("http://wthrcdn.etouch.cn/weather_mini?city="+this.city).then(function(response){
+                        console.log(response.data.data.forecast)
+                        that.weather_list = response.data.data.forecast
+                    }).catch(function(err){
+                        console.log(err)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+
+
+
+
