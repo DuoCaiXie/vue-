@@ -17,6 +17,7 @@
                         {{item.date}}{{item.type}} {{item.high}} {{item.fengli}} {{item.low}} {{item.fengxiang}}
                 </li>
             </ul>
+            <span @click="startSearch('北京')">北京</span> <span @click="startSearch('上海')">上海</span> <span @click="startSearch('广州')">广州</span> 
 
     </div>
     <script>
@@ -36,6 +37,10 @@
                     }).catch(function(err){
                         console.log(err)
                     })
+                },
+                startSearch:function(city){
+                    this.city=city;
+                    this.weatherSearch();
                 }
             }
         })
