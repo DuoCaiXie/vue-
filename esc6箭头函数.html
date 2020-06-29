@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let func1 = function(){
+        //     console.log('test')
+        // }
+        // func1();
+
+        // 箭头函数 function省略时替换成 =>
+        
+        let func2 = ()=>console.log('test')
+        func2();
+
+        // 一个参数的时候，无返回值的函数 可以省略()
+        let func =p1=>console.log(p1)
+        func('一个参数省略圆括号');
+        // 两个参数 无返回值的函数 ，圆括号不能省 大括号也不能
+        let func3 =(p1,p2)=>{
+            console.log(p1);
+            console.log(p2);
+        }
+        func3('圆括号不能省','大括号也不能省');
+        // 无参数 有返回值
+        let fun =()=>"返回值";
+        let p1 = fun();
+        console.log(p1)
+
+        // 一个参数 有返回值 一行
+        let fun2 = p1 => p1
+        let p2 = fun2('有参数')
+        console.log(p2);
+
+        // 两个参数 多行
+        let fun3 = (p1,p2)=>{
+            console.log(p1);
+            console.log(p2);
+            return p1 + p2 + '黑马';
+        }
+        let res= fun3('我','时')
+        console.log(res)
+
+        // 箭头函数的this
+        // 用箭头函数的时候创建的时候函数时谁，this就是谁
+
+
+    </script>
+</body>
+</html>
