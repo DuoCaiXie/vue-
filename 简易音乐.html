@@ -17,9 +17,10 @@
                 <div style="border:1px solid red;width:300px;height:300px; position: absolute;left: 500px; top: 30px;" >
                         <img :src="imageCover" width="300px" height="300px" >
                         <audio :src="music_url"   controls autoplay loop></audio>
+                        <video ref='video' :src="mv_url" controls="controls"></video>
                 </div>
            
-            <li v-for="item in music_list" >{{item.name}} <button @click="play_music(item.id)">播放</button> <button v-if="item.mvid!=0">MV</button> </li> 
+            <li v-for="item in music_list" >{{item.name}} <button @click="play_music(item.id)">播放</button> <button v-if="item.mvid!=0"  @click="play_mv(item.mvid)">MV</button> </li> 
             <div style="position: absolute; left: 800px; top: 30px;" >
                 <ul>
                     <li v-for="item in hot_comment_list" style="width: 200px;">{{item.content}}</li>
@@ -38,7 +39,8 @@
                 music_list:[],
                 music_url:"",
                 imageCover:"https://p2.music.126.net/RQBF9kqZb7PtLCaOxi9ngQ==/109951163053984533.jpg",
-                hot_comment_list:[]
+                hot_comment_list:[],
+                mv_url:''
             },
             methods:{
                 search_Music:function(){
@@ -66,6 +68,17 @@
                         // that.imageCover = response.data.songs[0].al.picUrl
                         // console.log(response)
                         that.hot_comment_list = response.data.hotComments
+                    }).catch(function(err){})
+                   
+                },
+                play_mv:function(mvid){
+                    // axios.get('https://autumnfish.cn/mv/url?id='+mvid).then(function(response){
+                    //     console.log(response)
+                    // }.catch(function(err){}))
+                    that = this
+                    axios.get('https://autumnfish.cn/mv/url?id='+mvid).then(function(response){
+                        // console.log(response.data.data.url)
+                        that.mv_url = response.data.data.url
                     }).catch(function(err){})
                 }
             }
