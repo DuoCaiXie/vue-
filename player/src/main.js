@@ -14,6 +14,8 @@ import mvs from './components/06.mvs.vue'
 import results from './components/07.result.vue'
 
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 // 创建路由
 let router = new VueRouter({
